@@ -1,6 +1,6 @@
 //Rock Paper Scissors Program from Odin Project
 
-//Function that controls the computer
+//Function that picks the computer's choice
 function computerPlay(){
     
     //value will hold the number for the computers choice.
@@ -60,6 +60,7 @@ function game(){
     let cpuScore = 0;
     let tie = 0;
 
+    //Hardcoded 5 rounds
     for(let i = 0; i < 5; i++){
         let player = prompt("Please choose Rock, Paper, or Scissors");
         player = player.toLowerCase();  //Accounts for various user inputs
@@ -70,6 +71,7 @@ function game(){
         }
 
         //Captures the results as a string and updates respective score
+        //Uses the playRound() and computerPlay() functions
         let result = playRound(player, computerPlay());
         console.log(result);
 
@@ -86,6 +88,7 @@ function game(){
         
     }
 
+    //Displays results
     console.log("Your score:\t\t\t" + playerScore);
     console.log("Computer's score:\t" + cpuScore);
     if(playerScore > cpuScore){
@@ -99,4 +102,5 @@ function game(){
     }
 }
 
+//Executes game
 game();
