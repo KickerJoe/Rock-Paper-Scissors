@@ -18,6 +18,7 @@ function computerPlay(){
     
 }
 
+//function that will play a single round. Compares player's choice to response to computer's choice
 function playRound(playerSelection, computerSelection){
     let playerChoice = playerSelection.toLowerCase();
 
@@ -50,3 +51,52 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+//This function will play the game 5 times, keeps score, and reports the winner.
+function game(){
+    console.log("Welcome to Rock Paper Scissors!");
+    console.log("Best of Five Games!");
+
+    let playerScore = 0;
+    let cpuScore = 0;
+    let tie = 0;
+
+    for(let i = 0; i < 5; i++){
+        let player = prompt("Please choose Rock, Paper, or Scissors");
+        player = player.toLowerCase();  //Accounts for various user inputs
+        
+        //Loop checks for valid input
+        while(!(player === "rock" || player === "paper" || player === "scissors")){
+            player = prompt("Incorrect respose. Please choose Rock, Paper, or Scissors");
+        }
+
+        //Captures the results as a string and updates respective score
+        let result = playRound(player, computerPlay());
+        console.log(result);
+
+        if(result.includes("Win")){
+            playerScore++;
+        }
+        else if(result.includes("Lose")){
+            cpuScore++;
+        }
+        else{
+            tie++;
+        }
+
+        
+    }
+
+    console.log("Your score:\t\t\t" + playerScore);
+    console.log("Computer's score:\t" + cpuScore);
+    if(playerScore > cpuScore){
+        console.log("You are the winner!");
+    }
+    else if(playerScore < cpuScore){
+        console.log("I'm sorry, you lost!");
+    }
+    else{
+        console.log("Best of five, ended in a tie!");
+    }
+}
+
+game();
