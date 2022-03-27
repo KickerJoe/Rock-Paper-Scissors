@@ -51,31 +51,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-
-
-console.log("Welcome to Rock Paper Scissors!");
-
-
-let playerScore = 0;
-let cpuScore = 0;
-let tie = 0;
-let result = "";
-
-
-//Begin button changes
-console.log("Please choose Rock, Paper, or Scissors");
-//Creates a nodelist of buttons
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        result = playRound(button.id, computerPlay());
-        console.log(result);
-        updateScore(result);
-        score();
-    });
-});
-
-
 function updateScore(res) {
     if (res.includes("Win")) {
         playerScore++;
@@ -93,6 +68,39 @@ function score() {
     console.log("Computer's score:\t" + cpuScore);
 }
 
+let playerScore = 0;
+let cpuScore = 0;
+let tie = 0;
+let result = "";
+
+const scoreboard = document.querySelector('.scoreboard');
+
+const player = document.createElement('p');
+player.setAttribute('id','playerScore');
+player.textContent = 'Your Score: ' + playerScore;
+scoreboard.appendChild(player);
+
+const comp = document.createElement('p');
+comp.setAttribute('id',"computerScore");
+comp.textContent = "Computer's Score: " + cpuScore;
+scoreboard.appendChild(comp);
 
 
 
+
+console.log("Welcome to Rock Paper Scissors!");
+console.log("Please choose Rock, Paper, or Scissors");
+//Creates a nodelist of buttons
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        result = playRound(button.id, computerPlay());
+        console.log(result);
+        updateScore(result);
+        score();
+        player.textContent = 'Your Score: ' + playerScore;
+        scoreboard.appendChild(player);
+        comp.textContent = "Computer's Score: " + cpuScore;
+        scoreboard.appendChild(comp);
+    });
+});
