@@ -51,42 +51,42 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-//This function will play the game 5 times, keeps score, and reports the winner.
-function game(){
+
+
     console.log("Welcome to Rock Paper Scissors!");
-    console.log("Best of Five Games!");
+    
 
     let playerScore = 0;
     let cpuScore = 0;
     let tie = 0;
+    let result = "";
 
-    //Hardcoded 5 rounds
-    for(let i = 0; i < 5; i++){
-        let player = prompt("Please choose Rock, Paper, or Scissors");
-        player = player.toLowerCase();  //Accounts for various user inputs
-        
-        //Loop checks for valid input
-        while(!(player === "rock" || player === "paper" || player === "scissors")){
-            player = prompt("Incorrect respose. Please choose Rock, Paper, or Scissors");
-        }
-
-        //Captures the results as a string and updates respective score
-        //Uses the playRound() and computerPlay() functions
-        let result = playRound(player, computerPlay());
-        console.log(result);
-
-        if(result.includes("Win")){
-            playerScore++;
-        }
-        else if(result.includes("Lose")){
-            cpuScore++;
-        }
-        else{
-            tie++;
-        }
+    
+    //Begin button changes
+    console.log("Please choose Rock, Paper, or Scissors");
+    //Creates a nodelist of buttons
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            result = playRound(button.id, computerPlay());
+            console.log(result);
+            
+        });
+    });
 
         
+    if(result.includes("Win")){
+        playerScore++;
     }
+    else if(result.includes("Lose")){
+        cpuScore++;
+    }
+    else{
+        tie++;
+    }
+
+        
+    
 
     //Displays results
     console.log("Your score:\t\t\t" + playerScore);
@@ -100,7 +100,7 @@ function game(){
     else{
         console.log("Best of five, ended in a tie!");
     }
-}
+
 
 //Executes game
-game();
+
