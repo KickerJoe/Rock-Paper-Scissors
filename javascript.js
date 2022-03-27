@@ -1,106 +1,98 @@
 //Rock Paper Scissors Program from Odin Project
 
 //Function that picks the computer's choice
-function computerPlay(){
-    
+function computerPlay() {
+
     //value will hold the number for the computers choice.
-    let value = Math.floor(Math.random()*3 + 1);
-    
-    if(value === 1){
+    let value = Math.floor(Math.random() * 3 + 1);
+
+    if (value === 1) {
         return "rock";
     }
-    else if(value == 2){
+    else if (value == 2) {
         return "paper";
     }
-    else{
+    else {
         return "scissors";
     }
-    
+
 }
 
 //function that will play a single round. Compares player's choice to response to computer's choice
-function playRound(playerSelection, computerSelection){
+function playRound(playerSelection, computerSelection) {
     let playerChoice = playerSelection.toLowerCase();
 
-    if(playerChoice === "rock" && computerSelection === "rock"){
+    if (playerChoice === "rock" && computerSelection === "rock") {
         return "Tie!";
     }
-    else if(playerChoice === "rock" && computerSelection === "paper"){
+    else if (playerChoice === "rock" && computerSelection === "paper") {
         return "You Lose! Paper beats Rock";
     }
-    else if(playerChoice === "rock" && computerSelection === "scissors"){
+    else if (playerChoice === "rock" && computerSelection === "scissors") {
         return "You Win! Rock beats Scissors";
     }
-    else if(playerChoice === "paper" && computerSelection === "rock"){
+    else if (playerChoice === "paper" && computerSelection === "rock") {
         return "You Win! Paper beats Rock";
     }
-    else if(playerChoice === "paper" && computerSelection === "paper"){
+    else if (playerChoice === "paper" && computerSelection === "paper") {
         return "Tie!";
     }
-    else if(playerChoice === "paper" && computerSelection === "scissors"){
+    else if (playerChoice === "paper" && computerSelection === "scissors") {
         return "You Lose! Scissors beats Paper";
     }
-    else if(playerChoice === "scissors" && computerSelection === "rock"){
+    else if (playerChoice === "scissors" && computerSelection === "rock") {
         return "You Lose! Rock beats Scissors";
     }
-    else if(playerChoice === "scissors" && computerSelection === "paper"){
+    else if (playerChoice === "scissors" && computerSelection === "paper") {
         return "You Win! Scissors beats Paper";
     }
-    else{
+    else {
         return "Tie!";
     }
 }
 
 
 
-    console.log("Welcome to Rock Paper Scissors!");
-    
+console.log("Welcome to Rock Paper Scissors!");
 
-    let playerScore = 0;
-    let cpuScore = 0;
-    let tie = 0;
-    let result = "";
 
-    
-    //Begin button changes
-    console.log("Please choose Rock, Paper, or Scissors");
-    //Creates a nodelist of buttons
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            result = playRound(button.id, computerPlay());
-            console.log(result);
-            
-        });
+let playerScore = 0;
+let cpuScore = 0;
+let tie = 0;
+let result = "";
+
+
+//Begin button changes
+console.log("Please choose Rock, Paper, or Scissors");
+//Creates a nodelist of buttons
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        result = playRound(button.id, computerPlay());
+        console.log(result);
+        updateScore(result);
+        score();
     });
+});
 
-        
-    if(result.includes("Win")){
+
+function updateScore(res) {
+    if (res.includes("Win")) {
         playerScore++;
     }
-    else if(result.includes("Lose")){
+    else if (res.includes("Lose")) {
         cpuScore++;
     }
-    else{
+    else {
         tie++;
     }
+}
 
-        
-    
-
-    //Displays results
+function score() {
     console.log("Your score:\t\t\t" + playerScore);
     console.log("Computer's score:\t" + cpuScore);
-    if(playerScore > cpuScore){
-        console.log("You are the winner!");
-    }
-    else if(playerScore < cpuScore){
-        console.log("I'm sorry, you lost!");
-    }
-    else{
-        console.log("Best of five, ended in a tie!");
-    }
+}
 
 
-//Executes game
+
 
