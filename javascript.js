@@ -71,19 +71,34 @@ function score() {
 let playerScore = 0;
 let cpuScore = 0;
 let tie = 0;
+let count = 0;
 let result = "";
 
 const scoreboard = document.querySelector('.scoreboard');
 
+const roundResults = document.createElement('h1');
+roundResults.setAttribute('id', "roundResults");
+roundResults.textContent = "";
+scoreboard.appendChild(roundResults);
+
 const player = document.createElement('p');
-player.setAttribute('id','playerScore');
+player.setAttribute('id', 'playerScore');
 player.textContent = 'Your Score: ' + playerScore;
 scoreboard.appendChild(player);
 
 const comp = document.createElement('p');
-comp.setAttribute('id',"computerScore");
+comp.setAttribute('id', "computerScore");
 comp.textContent = "Computer's Score: " + cpuScore;
 scoreboard.appendChild(comp);
+
+const winner = document.createElement('h1');
+winner.setAttribute('id', "winner");
+winner.textContent = "";
+
+const playAgain = document.createElement('button');
+playAgain.setAttribute('id','resume');
+playAgain.textContent = "Play Again?";
+
 
 
 
@@ -91,16 +106,47 @@ scoreboard.appendChild(comp);
 console.log("Welcome to Rock Paper Scissors!");
 console.log("Please choose Rock, Paper, or Scissors");
 //Creates a nodelist of buttons
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.btn');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
+        count++;
         result = playRound(button.id, computerPlay());
         console.log(result);
         updateScore(result);
         score();
+        roundResults.textContent = result;
         player.textContent = 'Your Score: ' + playerScore;
         scoreboard.appendChild(player);
         comp.textContent = "Computer's Score: " + cpuScore;
         scoreboard.appendChild(comp);
+        gameOver(count);
     });
 });
+
+
+
+function gameOver(num) {
+    if (num === 5){
+        if (playerScore > cpuScore) {
+            winner.textContent = "You Win Best of Five!";
+        }
+        else if (cpuScore > playerScore) {
+            winner.textContent = "The Computer Wins Best of Five!";
+        }
+        else {
+            winner.textContent = "The Best of Five Results in a Tie!";
+        }
+        scoreboard.appendChild(winner);
+        document.getElementsByClassName("btn").disabled = true;
+        scoreboard.appendChild(playAgain);
+        const resumeBtn = document.querySelector('#resume');
+        resumeBtn.addEventListener('click', () => {
+        count = 0;
+        playerScore = 0;
+        cpuScore = 0;
+        scoreboard.removeChild(winner);
+        document.getElementsByClassName("btn").disabled = false;
+        scoreboard.removeChild(playAgain);
+        });
+        }
+}
